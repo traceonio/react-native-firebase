@@ -171,7 +171,7 @@ describe('functions()', function () {
     });
   });
 
-  describe('HttpsError', function () {
+  xdescribe('HttpsError', function () {
     it('errors return instance of HttpsError', async function () {
       const functionRunner = firebase.functions().httpsCallable('testFunctionDefaultRegion');
 
