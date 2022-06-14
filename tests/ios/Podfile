@@ -32,7 +32,7 @@ target 'testing' do
   )
 
   # Use pre-compiled firestore frameworks to optimize compile time. Auto-includes leveldb if needed.
-  # pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => $FirebaseSDKVersion
+  pod 'FirebaseFirestore', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => $FirebaseSDKVersion
 
   # If leveldb auto-inclusion fails and build fails with leveldb symbol conflicts, use this subspec:
   # pod 'FirebaseFirestore/WithoutLeveldb', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => $FirebaseSDKVersion
