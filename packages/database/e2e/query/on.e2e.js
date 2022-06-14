@@ -159,35 +159,44 @@ describe('database().ref().on()', function () {
     }
   });
 
-  // FIXME super flaky on android emulator
-  it('subscribe to child changed events', async function () {
+  // FIXME only succeeds after we install second listener, if first listener not removed?
+  it.only('subscribe to child changed events', async function () {
     if (device.getPlatform() === 'ios') {
       const successCallback = sinon.spy();
       const cancelCallback = sinon.spy();
       const ref = firebase.database().ref(`${TEST_PATH}/childChanged`);
       const child = ref.child('changeme');
       await child.set('foo');
+      Utils.sleep(1000);
 
       ref.on(
         'child_changed',
         $ => {
+          console.error('called with ' + $.val());
           successCallback($.val());
         },
         () => {
+          console.error('canceled?');
           cancelCallback();
         },
       );
+      Utils.sleep(1000);
 
       const value1 = Date.now();
+      console.error('value1 is ' + value1);
       const value2 = Date.now() + 123;
+      console.error('value2 is ' + value2);
 
-      await child.set(value1);
-      await child.set(value2);
-      await Utils.spyToBeCalledTimesAsync(successCallback, 2);
-      ref.off('child_changed');
-      successCallback.getCall(0).args[0].should.equal(value1);
-      successCallback.getCall(1).args[0].should.equal(value2);
-      cancelCallback.should.be.callCount(0);
+      try {
+        await child.set(value1);
+        await child.set(value2);
+        await Utils.spyToBeCalledTimesAsync(successCallback, 2);
+        successCallback.getCall(0).args[0].should.equal(value1);
+        successCallback.getCall(1).args[0].should.equal(value2);
+        cancelCallback.should.be.callCount(0);
+      } finally {
+        ref.off('child_changed');
+      }
     } else {
       this.skip();
     }
