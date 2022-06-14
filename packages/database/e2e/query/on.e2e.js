@@ -160,7 +160,7 @@ describe('database().ref().on()', function () {
   });
 
   // FIXME only succeeds after we install second listener, if first listener not removed?
-  it.only('subscribe to child changed events', async function () {
+  xit('subscribe to child changed events', async function () {
     if (device.getPlatform() === 'ios') {
       const successCallback = sinon.spy();
       const cancelCallback = sinon.spy();
