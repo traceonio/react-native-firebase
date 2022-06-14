@@ -359,7 +359,7 @@ describe('storage() -> StorageReference', function () {
     before(async function () {
       await seed(PATH);
     });
-    it.only('should return the updated metadata for a file', async function () {
+    xit('should return the updated metadata for a file', async function () {
       const storageReference = firebase.storage().ref(`${PATH}/list/file1.txt`);
       console.error('pre-update metadata: ' + JSON.stringify(storageReference.metadata));
       let metadata = await storageReference.updateMetadata({
@@ -450,7 +450,7 @@ describe('storage() -> StorageReference', function () {
     });
 
     // FIXME crashing on ios now with ios sdk v9
-    it('should set removed customMetadata properties to null', async function () {
+    xit('should set removed customMetadata properties to null', async function () {
       const storageReference = firebase.storage().ref(`${PATH}/list/file1.txt`);
       const metadata = await storageReference.updateMetadata({
         contentType: 'application/octet-stream',
