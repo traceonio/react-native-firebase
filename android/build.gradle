@@ -186,9 +186,8 @@ dependencies {
    * -------------------------------- */
 
   // For React Native Firebase Notifications
-  api "androidx.legacy:legacy-support-v4:1.0.0"
   compileOnly "androidx.legacy:legacy-support-v4:1.0.0"
-  compileOnly "androidx.annotation:annotation:1.4.0"
+  compileOnly "androidx.annotation:annotation:1.1.0"
 
   // For React Native Firebase Notifications
   compileOnly 'me.leolin:ShortcutBadger:1.1.22@aar'
