@@ -1,7 +1,3 @@
-def safeExtGet(prop, fallback) {
-  rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
-}
-
 buildscript {
   // The Android Gradle plugin is only required when opening the android folder stand-alone.
   // This avoids unnecessary downloads and potential conflicts when the library is included as a
@@ -90,7 +86,7 @@ rootProject.gradle.buildFinished { buildResult ->
 
 repositories {
   google()
-  jcenter()
+  mavenCentral()
 
   def found = false
   def parentDir = rootProject.projectDir
@@ -141,8 +137,6 @@ repositories {
   }
 }
 
-def supportVersion = rootProject.hasProperty('supportLibVersion') ? rootProject.supportLibVersion : DEFAULT_SUPPORT_LIB_VERSION
-
 dependencies {
   //noinspection GradleDynamicVersion
   api "com.facebook.react:react-native:+"
@@ -161,7 +155,7 @@ dependencies {
    * ------------------------- */
 
   // Ads
-  compileOnly "com.google.firebase:firebase-ads:17.2.1" 
+  compileOnly "com.google.firebase:firebase-ads:17.2.1"
   // Authentication
   compileOnly "com.google.firebase:firebase-auth:17.0.0"
   // Analytics
@@ -192,11 +186,9 @@ dependencies {
    * -------------------------------- */
 
   // For React Native Firebase Notifications
-  def supportLibVersion = safeExtGet('supportLibVersion', '28.0.0')
-  def supportLibMajorVersion = supportLibVersion.split('\\.')[0] as int
-  def supportV4LibName =  (supportLibMajorVersion < 20) ? "androidx.legacy:legacy-support-v4" : "com.android.support:support-v4"
-  def supportV4Version = safeExtGet('supportV4Version', supportLibVersion)
-  api "$supportV4LibName:$supportV4Version"
+  api "androidx.legacy:legacy-support-v4:1.0.0"
+  compileOnly "androidx.legacy:legacy-support-v4:1.0.0"
+  compileOnly "androidx.annotation:annotation:1.4.0"
 
   // For React Native Firebase Notifications
   compileOnly 'me.leolin:ShortcutBadger:1.1.22@aar'
